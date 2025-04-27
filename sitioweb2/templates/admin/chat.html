@@ -1,0 +1,215 @@
+{% include 'admin/cabesera.html' %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Biblioteca</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            width: 100%;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+            overflow: hidden;
+            flex: 1;
+        }
+        .chat-header {
+            background-color: #075E54;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f8f9fa;
+        }
+        .message {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            position: relative;
+            word-wrap: break-word;
+        }
+        .message.sent {
+            background-color: #25D366;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .message.received {
+            background-color: #fff;
+            color: #333;
+            align-self: flex-start;
+            margin-right: auto;
+            border: 1px solid #ddd;
+        }
+        .message .fecha {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            display: block;
+        }
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .chat-input button {
+            background-color: #25D366;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-input button i {
+            font-size: 18px;
+        }
+        .chat-input button:hover {
+            background-color: #128C7E;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>mensajes de la web </h1>
+    </header>
+    <nav>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+    </nav>
+
+    <!-- Contenedor del Chat -->
+    <div class="chat-container">
+        <div class="chat-header">Chat de admistrador</div>
+        <div class="chat-box" id="chat-box">
+            <!-- Los mensajes se cargarán aquí dinámicamente -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="message" placeholder="Escribe un mensaje...">
+            <button onclick="enviarMensaje()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mensajes. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const remitente = 'admin';  // Cambia a 'sitio' para el sitio
+
+        // Función para cargar mensajes
+        function cargarMensajes() {
+            fetch('/obtener_mensajes')
+                .then(response => response.json())
+                .then(data => {
+                    const chatBox = document.getElementById('chat-box');
+                    chatBox.innerHTML = '';
+                    data.forEach(msg => {
+                        const div = document.createElement('div');
+                        div.innerHTML = `
+                            <div class="message ${msg.remitente === remitente ? 'sent' : 'received'}">
+                                ${msg.mensaje}
+                                <span class="fecha">${msg.fecha}</span>
+                            </div>
+                        `;
+                        chatBox.appendChild(div);
+                    });
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                });
+        }
+
+        // Función para enviar mensajes
+        function enviarMensaje() {
+            const messageInput = document.getElementById('message');
+            const mensaje = messageInput.value.trim();
+
+            if (mensaje !== "") {
+                fetch('/enviar_mensaje', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ remitente, mensaje })
+                })
+                .then(() => {
+                    messageInput.value = '';
+                    cargarMensajes();
+                });
+            }
+        }
+
+        // Cargar mensajes cada 2 segundos
+        setInterval(cargarMensajes, 2000);
+        cargarMensajes();  // Cargar mensajes al inicio
+    </script>
+</body>
+</html>
+
+{% include 'admin/pie.html' %}

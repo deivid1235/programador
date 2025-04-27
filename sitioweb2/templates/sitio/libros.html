@@ -1,0 +1,22 @@
+{% include 'sitio/cabesera.html' %}
+<br/>
+<div class="row">
+    {% for libro in libros %}
+    <!-- Card de cada libro -->
+    <div class="col-md-3 mb-4">
+        <div class="bg-info" style="width: 78%; margin: 0 auto; padding: 10px;">
+            <img class="card-img-top" 
+                 src="{{ url_for('static', filename='images/' + libro.imagen) }}" 
+                 alt="{{ libro.nombre }}"
+                 style="object-fit: contain; width: 100%; height: 400px; display: block; margin-bottom: 20px;" />
+            <div class="card-body text-center">
+                <h4 class="card-title">{{ libro.nombre }}</h4>
+                <p class="card-text">
+                    <a class="btn btn-danger" href="{{ libro.url }}" role="button">Descargar</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'sitio/pie.html' %}

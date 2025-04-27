@@ -1,0 +1,52 @@
+{% include 'admin/cabesera.html' %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Bienvenid@ al Administrador del Sitio</h2>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="https://www.redeweb.com/wp-content/uploads/2021/03/software-1.jpg" 
+                 alt="Administrador" class="img-fluid rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+        </div>
+        <div class="col-md-8">
+            <h3>Administración de Contenido</h3>
+            <p>
+                Como administrador, tienes el control total sobre el contenido de los libros en el sitio web. Puedes agregar, editar o eliminar libros según sea necesario. 
+            </p>
+            <p>
+                Te damos la bienvenida a la plataforma de gestión. Utiliza las herramientas disponibles para mantener la página actualizada y ofrecer los mejores recursos a los usuarios.
+            </p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4 text-center">
+            <a href="/admin/libros" class="text-decoration-none">
+                <div class="p-4 bg-info text-white rounded">
+                    <img src="https://www.330ohms.com/cdn/shop/articles/Necesitas-leer-estos-7-libros-de-programacion_b4383f32-4fe1-4e57-8b34-62b2bb1018b8_1024x1024.webp?v=1722326742" alt="Gestionar Libros" style="width: 80px; height: 80px; margin-bottom: 15px;">
+                    <h4>Gestionar Libros</h4>
+                    <p>Agrega, edita o elimina libros en el sitio web con facilidad. Mantén el contenido actualizado para ofrecer lo mejor.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 text-center">
+            <a href="/admin/estadisticas" class="text-decoration-none">
+                <div class="p-4 bg-info text-white rounded">
+                    <img src="https://e7.pngegg.com/pngimages/897/627/png-clipart-statistics-icon-ppt-element-text-logo.png" alt="Ver Estadísticas" style="width: 80px; height: 80px; margin-bottom: 15px;">
+                    <h4>Ver Estadísticas</h4>
+                    <p>Consulta las estadísticas de los libros más populares y el rendimiento de la plataforma.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 text-center">
+            <a href="/admin/configuraciones" class="text-decoration-none">
+                <div class="p-4 bg-info text-white rounded">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvRtgl9Hm_6YUMTrKudNPo-Hv7AQVAui4s2w&s" alt="Configuraciones" style="width: 80px; height: 80px; margin-bottom: 15px;">
+                    <h4>Configuraciones</h4>
+                    <p>Accede a configuraciones generales del sitio para personalizar y optimizar la experiencia del usuario.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% include 'admin/pie.html' %}
